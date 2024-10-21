@@ -1,0 +1,40 @@
+@use '../../styles/constants.scss';
+.bottombar{
+    display: flex;
+    justify-content: space-between;
+    background-color:constants.$white ;
+    position: absolute;
+    bottom:0;
+    left:0;
+    width: 100%;
+    padding:10px 20px 10px 20px;
+
+}
+@media screen and (max-width:568px) {
+    .bottombar{
+        display: flex;
+        justify-content: space-between;
+        background-color:constants.$white ;
+        position: absolute;
+        bottom:0;
+        left:0;
+        width: 100%;
+        padding:10px 20px 10px 20px;
+
+    }
+}
+
+
+@media screen and (max-width:375px) {
+    .bottombar{
+        display: flex;
+        justify-content: space-between;
+        background-color:constants.$white ;
+        position: sticky;
+        bottom:0;
+        left:0;
+        width: 100%;
+        padding:10px 20px 10px 20px;
+
+    }
+}

@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Jaldi:wght@400;700&display=swap');
+body{
+    font-family: "Jaldi", sans-serif;
+}
+/*---------------------------------------------------bodyscrollbar css-------------------------------------------------------------------- */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/*---------------------------------------------------bodyscrollbar css-------------------------------------------------------------------- */
+
+/*--------------------------------------------------------scrollbar css------------------------------------------------------------------- */
+.scroll {
+    padding: 0px;
+    overflow-x: auto;
+    overflow-y: auto;
+    white-space: nowrap;
+    height: max-content;
+}
+
+.scroll::-webkit-scrollbar {
+    height: 0rem;
+    width: 0rem;
+}
+
+.scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    background: white;
+}
+
+.scroll::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+@media screen and (max-width:568px) {
+    h4{
+        font-size: clamp(20px,1.25rem,22px);
+    }
+    h5{
+        font-size: clamp(18px,1.125rem,20px);
+    }
+    h6{
+        font-size: clamp(16px,1rem,18px);
+    }
+    p{
+        font-size: clamp(14px,0.875rem,16px);
+    }
+    small{
+        font-size: clamp(10px,0.625rem,12px);
+    }
+    .logo{
+        width:clamp(40px,6rem,90px);
+        height:clamp(40px,6rem,90px);
+        border-radius: 50%;
+    }
+    .icon{
+            width:clamp(32px,2rem,36px);
+            height:auto;
+    }
+}
+@media screen and (max-width:375px) {
+    p{
+        font-size: clamp(12px,0.75rem,14px);
+    }
+    small{
+        font-size: clamp(8px,0.5rem,10px);
+    }
+    .logo{
+        width:clamp(40px,2rem,60px);
+        height:clamp(40px,2rem,60px);
+        border-radius: 50%;
+    }
+    .icon{
+            width:clamp(20px,1.2rem,22px);
+            height:auto;
+    }
+}
