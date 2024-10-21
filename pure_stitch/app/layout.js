@@ -12,9 +12,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`relative bg-gray antialiased`} >
+      <body className={` bg-gray antialiased`} >
         {children}
-        <Bottombar/>
       </body>
     </html>
   );

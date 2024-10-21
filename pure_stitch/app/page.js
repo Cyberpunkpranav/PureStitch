@@ -6,7 +6,7 @@ import Bottombar from "./components/bottombar/bottombar";
 import Recommendations from "./components/recommendations/recommendations";
 export default function Home() {
   return (
-    <section className="">
+    <section className="h-[100vh] relative">
       <div className="flex items-center justify-evenly p-2">
   
       <div className="flex items-center scroll gap-2">
@@ -30,6 +30,7 @@ export default function Home() {
         ))
       }
       </div>
+      <Bottombar/>
     </section>
   );
 }
