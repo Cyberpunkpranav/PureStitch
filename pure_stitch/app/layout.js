@@ -14,6 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={` bg-gray antialiased`} >
         {children}
+        <Bottombar/>
       </body>
     </html>
   );
