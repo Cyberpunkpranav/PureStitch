@@ -1,9 +1,9 @@
 import Image from "next/image";
-import updates from "./components/updates/updates";
 import { updates as data ,recommendation } from "./data";
-import Updates from "./components/updates/updates";
 import Bottombar from "./components/bottombar/bottombar";
 import Recommendations from "./components/recommendations/recommendations";
+import NewArrivals from "./components/new_arrivals/new_arrivals";
+
 export default function Home() {
   return (
     <section className="relative">
@@ -16,11 +16,7 @@ export default function Home() {
           </div>
       <small>Pure Stitch</small>
       </div>
-      {
-        data.map((Data)=>(
-          <Updates title={Data.type} image={Data.image}/>
-        ))
-      }
+      <NewArrivals/>
       </div>
       </div>
       <div className="gap-4 flex flex-col mt-2">
