@@ -68,8 +68,11 @@ body::-webkit-scrollbar-thumb:hover {
         font-size: clamp(10px,0.625rem,12px);
     }
     .logo{
-        width:clamp(40px,6rem,90px);
-        height:clamp(40px,6rem,90px);
+        width:clamp(40px,4rem,64px);
+        height:clamp(40px,4rem,64px);
+        overflow: hidden;
+        aspect-ratio: 1;
+
         border-radius: 50%;
     }
     .icon{

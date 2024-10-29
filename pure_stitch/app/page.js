@@ -7,17 +7,17 @@ import NewArrivals from "./components/new_arrivals/new_arrivals";
 export default function Home() {
   return (
     <section className="relative">
-      <div className="flex items-center justify-evenly p-2">
-  
-      <div className="flex items-center scroll gap-2">
-      <div className="text-center">
-          <div className="logo">
-          <Image height={100} width={100} src='/images/logo.png'/>
-          </div>
-      <small>Pure Stitch</small>
+      <div style={{borderBottom:"0.5px solid #36454F"}} className="py-1 sticky top-0 bg-gray flex text-center items-center justify-between px-4 border-b-charcoal">
+      <div className="flex items-center">      
+      <Image className="logo" height={100} width={100} src='/images/logo.png'/>
+      <h2>Pure Stitch</h2>
       </div>
+      <div>
+        <Image height={100} width={100} className="icon" unoptimized={true} src='/icons/wishlist.svg'/>
+      </div>
+      </div>
+      <div className="flex items-center gap-2 mt-3 scroll justify-evenly">
       <NewArrivals/>
-      </div>
       </div>
       <div className="gap-4 flex flex-col mt-2">
       {

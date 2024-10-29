@@ -4,9 +4,9 @@ import Image from 'next/image'
 
 const New_Arrival_component = ({data}) => {
   return (
-    <div className={styles['updates-wrapper']}>
-    <div className={styles['updates-new']}>
-    <div className={styles.updates}>
+    <div className={styles['arrivals-wrapper']}>
+    <div className={styles['arrivals-new']}>
+    <div className={styles.arrivals}>
       {
         data&&data.image?      
         <Image width={100} height={100} src={`/images/${data.image}`}/>
