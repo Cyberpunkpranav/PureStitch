@@ -1,5 +1,10 @@
 @use '../../styles/constants.scss';
 
+.media{
+    min-width: 100%;
+    height: auto;
+}
+
 @media screen and (max-width:568px) {
 
     .post{
