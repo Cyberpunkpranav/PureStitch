@@ -28,6 +28,8 @@ const NewArrivals = () => {
     }
   })
   function isInViewport(element) {
+    console.log(element);
+    
     const div = document.getElementById(element)
     const rect = div.getBoundingClientRect();
     return (
@@ -47,9 +49,48 @@ const NewArrivals = () => {
       return updatedData;
     });
   }
-  console.log(Height,Width,data);
+  // console.log(Height,Width,data);
 
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        console.log(entries);
+        
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            console.log(`Image ${entry.target.id} is in viewport`);
+            // setdata((item)=>{
+            //   const updtedDaata = 
+            // })
+            // Trigger any action here, like loading higher quality images
+          }
+        })
+      },
+      {
+        root: null, // viewport
+        threshold: 0.1, // Trigger when 10% of the image is visible
+      }
+    );
+
+    // Observe each image by ID
+    data.forEach((data, i) => {
+      const imageElement = document.getElementById(`${data.type_name}_image`);
+      if (imageElement) {
+        observer.observe(imageElement);
+      }
+    });
+
+    // Cleanup observer when component unmounts
+    return () => {
+      data.forEach((data) => {
+        const imageElement = document.getElementById(`${data.type_name}_image`);
+        if (imageElement) {
+          observer.unobserve(imageElement);
+        }
+      });
+    };
+  }, [data]);
   return (
     data&&data.map((data,i)=>(
       <div key={i} className={styles['arrivals-wrapper']}>
