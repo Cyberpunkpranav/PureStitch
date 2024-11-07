@@ -1,69 +1,70 @@
 'use client'
-import React, { useEffect,useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { product_types } from '@/app/api/common/common'
 import styles from './new_arrivals.module.scss'
 
 const NewArrivals = () => {
-  const [data,setdata] = useState([])
-  const [quality,setquality] = useState(70)
-  const [Height,setHeight] = useState(null)
-  const [Width,setWidth] = useState(null)
+  const [data, setData] = useState([])
+  const [quality, setQuality] = useState(70)
+  const [height, setHeight] = useState(null)
+  const [width, setWidth] = useState(null)
+  const loadedImages = useRef(new Set()) // Track loaded images to prevent multiple reloads
+  const observerRef = useRef(null) // Reference to the observer instance
 
-
-  const fetch=async()=>{
-    const data  = await product_types()
-    setdata(data.data)
+  // Fetch data
+  const fetchData = async () => {
+    const response = await product_types()
+    setData(response.data)
   }
-  
-  useEffect(()=>{
-    fetch()
-  },[])
- 
-  useEffect(()=>{
-    const container = data[0]!==undefined && document.getElementById(data[0].type_name) 
-    if(container){
-      const {height,width} =  container.getBoundingClientRect()
-      setHeight(height)
-      setWidth(width)
-    }
-  })
-  function isInViewport(element) {
-    console.log(element);
-    
-    const div = document.getElementById(element)
-    const rect = div.getBoundingClientRect();
-    return (
-      rect.top >= 0 &&
-      rect.left >= 0 &&
-      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-  }
-  const onLoadImage=(index)=>{
-    setdata((prevData) => {
-      const updatedData = prevData.map((item, i) => 
-        index === i && isInViewport(item.type_name)
-          ? { ...item, image_url: `${process.env.NEW_ARRIVALS_BG_URL}?width=${Width * 2}&height=${Height * 2}&format=png&quality=100&image=${item.image}` }
-          : item
-      );
-      return updatedData;
-    });
-  }
-  // console.log(Height,Width,data);
-
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    fetchData()
+  }, [])
+
+  useEffect(() => {
+    if (data.length > 0) {
+      const container = document.getElementById(data[0].type_name)
+      if (container) {
+        const { height, width } = container.getBoundingClientRect()
+        setHeight(height)
+        setWidth(width)
+      }
+    }
+  }, [data])
+
+  const onLoadImage = (index) => {
+    if (!loadedImages.current.has(index)) {
+      setData((prevData) => {
+        const updatedData = prevData.map((item, i) =>
+          index === i
+            ? { ...item, image_url: `${process.env.NEW_ARRIVALS_BG_URL}?width=${width * 2}&height=${height * 2}&format=png&quality=100&image=${item.image}` }
+            : item
+        )
+        return updatedData
+      })
+      loadedImages.current.add(index) // Mark image as loaded
+    }
+  }
+
+  // Initialize observer
+  useEffect(() => {
+    if (observerRef.current) {
+      observerRef.current.disconnect() // Disconnect any previous observer
+    }
+
+    observerRef.current = new IntersectionObserver(
       (entries) => {
-        console.log(entries);
-        
         entries.forEach((entry) => {
+          
           if (entry.isIntersecting) {
-            console.log(`Image ${entry.target.id} is in viewport`);
-            // setdata((item)=>{
-            //   const updtedDaata = 
-            // })
-            // Trigger any action here, like loading higher quality images
+            const index = data.findIndex(item => `${item.type_name}_image` === entry.target.id)
+            
+            if (index !== -1 && !loadedImages.current.has(index)) {
+              onLoadImage(index)
+              if (observerRef.current) {
+                observerRef.current.unobserve(entry.target) // Stop observing after loading
+              }
+            }
           }
         })
       },
@@ -71,43 +72,45 @@ const NewArrivals = () => {
         root: null, // viewport
         threshold: 0.1, // Trigger when 10% of the image is visible
       }
-    );
+    )
 
-    // Observe each image by ID
-    data.forEach((data, i) => {
-      const imageElement = document.getElementById(`${data.type_name}_image`);
-      if (imageElement) {
-        observer.observe(imageElement);
+    // Observe each image element
+    data.forEach((item) => {
+      const imageElement = document.getElementById(`${item.type_name}_image`)
+      if (imageElement && observerRef.current) {
+        observerRef.current.observe(imageElement)
       }
-    });
+    })
 
     // Cleanup observer when component unmounts
     return () => {
-      data.forEach((data) => {
-        const imageElement = document.getElementById(`${data.type_name}_image`);
-        if (imageElement) {
-          observer.unobserve(imageElement);
-        }
-      });
-    };
-  }, [data]);
+      if (observerRef.current) {
+        observerRef.current.disconnect()
+      }
+    }
+  }, [data]) // Include height and width to handle resizing
+
   return (
-    data&&data.map((data,i)=>(
+    data && data.map((item, i) => (
       <div key={i} className={styles['arrivals-wrapper']}>
-      <div className={styles['arrivals-new']}>
-      <div id={data.type_name} className={styles.arrivals}>
-        {
-          Height !=null && Width !=null
-          ? 
-          <img id={data.type_name+"_image"} onLoad={()=>onLoadImage(i)} alt='image' style={{height:'100%'}} src={data.image_url?data.image_url:`${process.env.NEW_ARRIVALS_BG_URL}?width=${Width}&height=${Height}&format=png&quality=${quality}&image=${data.image}`}/>
-        : <></>
-        }
-      </div>
-     </div>
-     <small>{data&&data.type_name}</small>
+        <div className={styles['arrivals-new']}>
+          <div id={item.type_name} className={styles.arrivals}>
+            {
+              height !== null && width !== null
+                ? 
+                <img
+                  id={item.type_name + "_image"}
+                  alt='image'
+                  style={{ height: '100%' }}
+                  src={item.image_url ? item.image_url : `${process.env.NEW_ARRIVALS_BG_URL}?width=${width}&height=${height}&format=png&quality=${quality}&image=${item.image}`}
+                />
+                : null
+            }
+          </div>
+        </div>
+        <small>{item && item.type_name}</small>
       </div>
     ))
-
   )
 }
 
