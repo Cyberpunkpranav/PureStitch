@@ -1,0 +1,7 @@
+@use '../styles/constants.scss';
+
+.user_body{
+    height: 100vh;
+    padding:10px;
+    background-color:constants.$gray;
+}

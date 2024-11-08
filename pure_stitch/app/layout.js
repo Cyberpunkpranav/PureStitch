@@ -1,4 +1,3 @@
-import localFont from "next/font/local";
 import "./globals.css";
 import './styles/index.scss';
 import Bottombar from "./components/bottombar/bottombar";
@@ -12,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={` bg-gray antialiased`} >
+      <body className={`bg-gray antialiased`} >
         {children}
         <Bottombar/>
       </body>

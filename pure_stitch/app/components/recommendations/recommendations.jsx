@@ -6,11 +6,12 @@ import Image from 'next/image'
 
 const recommendations = () => {
     const [data,setData] = useState([])
-    const [quality, setQuality] = useState(70)
-    const [height, setHeight] = useState(null)
-    const [width, setWidth] = useState(null)
+    const [quality, setQuality] = useState(80)
+    const [Height, setHeight] = useState(null)
+    const [Width, setWidth] = useState(null)
     const loadedImages = useRef(new Set()) // Track loaded images to prevent multiple reloads
     const observerRef = useRef(null) // Reference to the observer instance
+    
     const fetch=async()=>{
       const data  = await products()
       setData(data.data)
@@ -22,15 +23,11 @@ const recommendations = () => {
 
     useEffect(() => {
       if (data.length > 0) {
-       console.log(data[0].id);
         
-        const container = document.getElementById(`media_0_0`)
-        console.log(container);
+        const container = document.getElementById(`media_${data[0].id}`)
         
         if (container) {
-          const { height, width } = container.getBoundingClientRect()
-          console.log(height,width);
-          
+          const { height, width } = container.getBoundingClientRect()          
           setHeight(height/6)
           setWidth(width/6)
         }
@@ -42,7 +39,15 @@ const recommendations = () => {
         setData((prevData) => {
           const updatedData = prevData.map((item, i) =>
             index === i
-              ? { ...item, image_url: `${process.env.NEW_ARRIVALS_BG_URL}?width=${width * 2}&height=${height * 2}&format=png&quality=100&image=${item.image}` }
+              ?  { 
+                ...item, 
+                media: item.media.map((mediaItem) => ({
+                  ...mediaItem,
+                  height: Height*10,
+                  width: Width*10,
+                  quality:100
+                }))
+              }
               : item
           )
           return updatedData
@@ -60,9 +65,9 @@ const recommendations = () => {
       observerRef.current = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            console.log(entry);
             
             if (entry.isIntersecting) {
+              console.log(entry.target.id);
               const index = data.findIndex(item => `media_${item.id}` === entry.target.id)
               
               if (index !== -1 && !loadedImages.current.has(index)) {
@@ -104,20 +109,22 @@ const recommendations = () => {
           <div className={styles['post-info']}>
           <h4 className='font-bold'>{data.product_name}</h4>
           </div>
-          <div id={`media_${data.id}`}>
+          <div className={styles.media} id={`media_${data.id}`}>
           {
+            Height !=null && Width!=null?
             data.media.map((media,i)=>(
-              <img id={`media_${index}_${i}`} className={styles.media} src={`${process.env.POST_MEDIA_URL}?width=${width}&height=${height}&format=png&quality=${quality}&category=${media.category}&image=${media.file}`}/>
+              <img id={`media_${index}_${i}`}  src={`${process.env.POST_MEDIA_URL}?width=${media.width&&media.width!=0?media.width:Width}&height=${media.height&&media.height!=0?media.height:Height}&format=${media.format}&quality=${media.quality&&media.quality!=0?media.quality:quality}&category=${media.category}&image=${media.file}`}/>
             ))
+            :<></>
           }
+          </div>
+          <div className={styles['post-actions']}>
+          <Image className='icon' width={100} height={100} src='/icons/wishlist.svg'/>
+          <Image className='icon' width={100} height={100} src='/icons/add to cart.svg'/>
           </div>
           <div className={styles['post-info']}>
           <p className='font-normal'>{data.product_description}</p>
           </div>
-      </div>
-      <div className={styles['post-actions']}>
-      <Image className='icon' width={100} height={100} src='/icons/wishlist.svg'/>
-      <Image className='icon' width={100} height={100} src='/icons/add to cart.svg'/>
       </div>
   </div>
     ))

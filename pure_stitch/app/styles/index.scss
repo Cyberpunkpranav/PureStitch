@@ -52,6 +52,9 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 @media screen and (max-width:568px) {
+    h3{
+        font-size: 24px;
+    }
     h4{
         font-size: clamp(20px,1.25rem,22px);
     }
