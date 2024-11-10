@@ -1,0 +1,12 @@
+@use '../../styles/constants.scss';
+.navbar{
+    padding:10px 10px 10px 10px;
+    position:sticky;
+    top:0;
+    background-color: constants.$white;
+    display: flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom :0.5px solid constants.$charcoal;
+    box-shadow:0 4px 2px -2px rgba(0, 0, 0, 0.2);
+}

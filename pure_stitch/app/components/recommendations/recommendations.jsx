@@ -106,9 +106,11 @@ const recommendations = () => {
     data.map((data,index)=>(
       <div className={styles['post-wrapper']}>
       <div className={styles.post}>
-          <div className={styles['post-info']}>
-          <h4 className='font-bold'>{data.product_name}</h4>
-          </div>
+        <div className="flex items-center py-2">
+        <img className='icon-mid px-1' src='/images/adidas.png'/>
+        <h6 className='font-semibold'>Adidas</h6>
+        </div>
+        
           <div className={styles.media} id={`media_${data.id}`}>
           {
             Height !=null && Width!=null?
@@ -123,7 +125,8 @@ const recommendations = () => {
           <Image className='icon' width={100} height={100} src='/icons/add to cart.svg'/>
           </div>
           <div className={styles['post-info']}>
-          <p className='font-normal'>{data.product_description}</p>
+          <h6 className=''>{data.product_name}</h6>
+          <p className=''>{data.product_description}</p>
           </div>
       </div>
   </div>

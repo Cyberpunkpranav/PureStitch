@@ -1,5 +1,6 @@
-import "./globals.css";
 import './styles/index.scss';
+import './styles/constants.scss';
+
 import Bottombar from "./components/bottombar/bottombar";
 
 
@@ -11,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`bg-gray antialiased`} >
+      <body >
         {children}
         <Bottombar/>
       </body>

@@ -3,3 +3,128 @@ $sanddollar:#efcfa0;
 $charcoal :#36454F;
 $gray:#F5F5F7;
 $white :#FFFFFF;
+$padding :4px;
+
+.relative {
+    position:relative;
+}
+.absolute {
+    position: absolute;
+}
+.static	{
+    position: static;
+}
+.fixed	{
+    position: fixed;
+}
+.sticky	{
+    position: sticky;
+}
+.block {
+    display: block;
+}
+.inline-block {
+    display: inline-block;
+}	
+.inline	{
+    display: inline;
+}
+.flex {
+    display: flex;
+}
+.inline-flex {
+    display: inline-flex;
+}
+.table {
+    display: table;
+}
+.inline-table {
+    display: inline-table;
+}	
+.table-row {
+    display: table-row;
+}	
+.grid {
+    display: grid;
+}
+.none {
+    display: none;
+}	
+.items-center{
+    align-items: center;
+}
+.justify-evenly{
+justify-content: space-evenly;
+}
+.justify-between{
+justify-content: space-between;
+}
+.overflow-hidden{
+    overflow: hidden;
+}
+// Updated padding-sizes map without the dot in keys
+$padding-sizes: (
+  0: 0rem,
+  0-5: 0.125rem, // 0.5rem becomes 0-5
+  1: 0.25rem,
+  1-5: 0.375rem, // 1.5rem becomes 1-5
+  2: 0.5rem,
+  2-5: 0.625rem,
+  3: 0.75rem,
+  3-5: 0.875rem,
+  4: 1rem,
+  // Add the remaining sizes as needed...
+);
+
+// Generate padding classes
+@each $key, $value in $padding-sizes {
+  .p-#{$key} {
+    padding: $value !important;
+  }
+
+  .pt-#{$key} {
+    padding-top: $value !important;
+  }
+
+  .pr-#{$key} {
+    padding-right: $value !important;
+  }
+
+  .pb-#{$key} {
+    padding-bottom: $value !important;
+  }
+
+  .pl-#{$key} {
+    padding-left: $value !important;
+  }
+
+  .px-#{$key} {
+    padding-left: $value !important;
+    padding-right: $value !important;
+  }
+
+  .py-#{$key} {
+    padding-top: $value !important;
+    padding-bottom: $value !important;
+  }
+}
+
+// Define a map of font weight values
+$font-weights: (
+  thin: 100,
+  extralight: 200,
+  light: 300,
+  normal: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+  extrabold: 800,
+  black: 900
+);
+
+// Generate font-weight classes
+@each $key, $value in $font-weights {
+  .font-#{$key} {
+    font-weight: $value !important;
+  }
+}
