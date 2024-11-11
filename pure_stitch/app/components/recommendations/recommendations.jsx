@@ -21,18 +21,18 @@ const recommendations = () => {
       fetch()
     },[])
 
-    useEffect(() => {
-      if (data.length > 0) {
+    // useEffect(() => {
+    //   if (data.length > 0) {
         
-        const container = document.getElementById(`media_${data[0].id}`)
+    //     const container = document.getElementById(`media_${data[0].id}`)
         
-        if (container) {
-          const { height, width } = container.getBoundingClientRect()          
-          setHeight(height/6)
-          setWidth(width/6)
-        }
-      }
-    }, [data])
+    //     if (container) {
+    //       const { height, width } = container.getBoundingClientRect()          
+    //       setHeight(height/6)
+    //       setWidth(width/6)
+    //     }
+    //   }
+    // }, [data])
   
     const onLoadImage = (index) => {
       if (!loadedImages.current.has(index)) {
@@ -115,7 +115,7 @@ const recommendations = () => {
           {
             Height !=null && Width!=null?
             data.media.map((media,i)=>(
-              <img id={`media_${index}_${i}`}  src={`${process.env.POST_MEDIA_URL}?width=${media.width&&media.width!=0?media.width:Width}&height=${media.height&&media.height!=0?media.height:Height}&format=${media.format}&quality=${media.quality&&media.quality!=0?media.quality:quality}&category=${media.category}&image=${media.file}`}/>
+              <img id={`media_${index}_${i}`}  src={`${process.env.POST_MEDIA_URL}?width=${media.width&&media.width!=0?media.width:media.original_width/10}&height=${media.height&&media.height!=0?media.height:media.original_height/10}&format=${media.format}&quality=${media.quality&&media.quality!=0?media.quality:quality}&category=${media.category}&image=${media.file}`}/>
             ))
             :<></>
           }
