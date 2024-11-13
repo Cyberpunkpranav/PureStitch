@@ -3,6 +3,7 @@ import { products } from '@/app/api/common/common'
 import React, { useState ,useEffect ,useRef} from 'react'
 import styles from './recommendations.module.scss'
 import Image from 'next/image'
+import { capitalize } from '@/app/utils/functions'
 
 const recommendations = () => {
     const [data,setData] = useState([])
@@ -11,10 +12,27 @@ const recommendations = () => {
     const [Width, setWidth] = useState(null)
     const loadedImages = useRef(new Set()) // Track loaded images to prevent multiple reloads
     const observerRef = useRef(null) // Reference to the observer instance
+
+    const ReduceRes = (original_height,original_width)=>{
+      let reduced_width = Math.round(window.innerWidth)
+      let width_ratio = Math.round(original_width/reduced_width) 
+      let reduced_height = Math.round(original_height/width_ratio)
     
+    return [reduced_height,reduced_width]
+      
+} 
     const fetch=async()=>{
       const data  = await products()
-      setData(data.data)
+      let Data =  data.data
+      console.log(Data[0].media[0]);
+      
+      for(let i=0;i<Data.length;i++){
+        for(let j=0;j<Data[i].media.length;j++){
+          Data[i].media[j].reduced_height = ReduceRes(Data[i].media[j].original_height,Data[i].media[j].original_width)[0]
+          Data[i].media[j].reduced_width = ReduceRes(Data[i].media[j].original_height,Data[i].media[j].original_width)[1]
+        }
+      }
+      setData(Data)
     }
     
     useEffect(()=>{
@@ -33,7 +51,8 @@ const recommendations = () => {
     //     }
     //   }
     // }, [data])
-  
+
+
     const onLoadImage = (index) => {
       if (!loadedImages.current.has(index)) {
         setData((prevData) => {
@@ -43,8 +62,8 @@ const recommendations = () => {
                 ...item, 
                 media: item.media.map((mediaItem) => ({
                   ...mediaItem,
-                  height: Height*10,
-                  width: Width*10,
+                  reduced_height: null,
+                  reduced_width:null,
                   quality:100
                 }))
               }
@@ -101,31 +120,34 @@ const recommendations = () => {
       }
     }, [data]) 
     console.log(data);
-    
+    capitalize()
   return (
     data.map((data,index)=>(
       <div className={styles['post-wrapper']}>
       <div className={styles.post}>
-        <div className="flex items-center py-2">
-        <img className='icon-mid px-1' src='/images/adidas.png'/>
-        <h6 className='font-semibold'>Adidas</h6>
+      <div className={styles['post-info']}>
+        <div className="flex items-center justify-between">
+        <div>
+        <h6 className='font-bold'>{capitalize(data.product_name)}</h6>
+        <h6 className='font-light'>{data.media[0].category}</h6>
         </div>
-        
+        <h6 className='inline-block font-light'>{data.gender ? <img src='/icons/male.svg'/>:<></>}</h6>
+        </div>
+      </div>
           <div className={styles.media} id={`media_${data.id}`}>
-          {
-            Height !=null && Width!=null?
+         {
+
             data.media.map((media,i)=>(
-              <img id={`media_${index}_${i}`}  src={`${process.env.POST_MEDIA_URL}?width=${media.width&&media.width!=0?media.width:media.original_width/10}&height=${media.height&&media.height!=0?media.height:media.original_height/10}&format=${media.format}&quality=${media.quality&&media.quality!=0?media.quality:quality}&category=${media.category}&image=${media.file}`}/>
+              <img id={`media_${index}_${i}`} onClick={()=>ReduceRes(media.original_height,media.original_width)}  src={`${process.env.POST_MEDIA_URL}?width=${media.reduced_width!=null?media.reduced_width:media.original_width}&height=${media.reduced_height!=null?media.reduced_height:media.original_height}&format=${media.format}&quality=${media.quality&&media.quality!=0?media.quality:quality}&category=${media.category}&image=${media.file}`}/>
+
             ))
-            :<></>
-          }
+            }
           </div>
           <div className={styles['post-actions']}>
           <Image className='icon' width={100} height={100} src='/icons/wishlist.svg'/>
           <Image className='icon' width={100} height={100} src='/icons/add to cart.svg'/>
           </div>
           <div className={styles['post-info']}>
-          <h6 className=''>{data.product_name}</h6>
           <p className=''>{data.product_description}</p>
           </div>
       </div>
