@@ -8,21 +8,9 @@ const Arrivals = ({data,type_name}) => {
   
   return (  
     <div className={styles['new-arrival']}>
-        {
-          data.map((Data)=>(
             <div className={styles['arrivals']}>
-            <div className={styles['product-name']}>{Data.product.product_name}</div>
-            <div className={styles['arrival-images']}>
-            {
-            Data.product.media.map((media)=>(
-              <Image unoptimized={true} className={styles.image} height={100} width={100} src={`${process.env.POST_MEDIA_URL}?width=${media.original_width}&height=${media.original_height}&image=${media.file}&category=${media.category}&quality=${100}&format=${media.format}`}/>
-            ))
-            }
+              <Image className={styles['arrival-images']} unoptimized={true} height={100} width={100} src={`${process.env.ARRIVAL_POST_MEDIA}?width=${data[0].original_width}&height=${data[0].original_height}&image=${data[0].file}&category=${`t-shirts`}&quality=${100}&format=${data[0].format}`}/>
             </div>
-            </div>
-          ))
-          
-        }
     </div>
   )
 }
