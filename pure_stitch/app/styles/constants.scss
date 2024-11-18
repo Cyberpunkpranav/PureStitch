@@ -62,6 +62,9 @@ justify-content: space-between;
 .overflow-hidden{
     overflow: hidden;
 }
+.text-center{
+  text-align: center;
+}
 // Updated padding-sizes map without the dot in keys
 $padding-sizes: (
   0: 0rem,
@@ -127,4 +130,12 @@ $font-weights: (
   .font-#{$key} {
     font-weight: $value !important;
   }
+}
+
+.bg-white{
+  background-color: $white;
+}
+
+.bg-gray{
+  background-color: $gray;
 }

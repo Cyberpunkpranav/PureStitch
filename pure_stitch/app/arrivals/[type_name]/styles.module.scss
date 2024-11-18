@@ -1,0 +1,25 @@
+@use '../../styles/constants.scss';
+
+.new-arrival{
+    height: 91vh;
+
+    & .arrivals{
+        margin: 10px;
+        & .product-name {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-top: 25px;
+            margin-bottom:25px;
+            text-align: center;
+        }
+    }
+    & .arrival-images{
+        background-color: constants.$white;
+        border-radius: 12px;
+        box-shadow: 0px 0px 1px 1px constants.$gray;
+    }
+    & .image{
+        width:100%;
+        height: auto;
+    }
+}

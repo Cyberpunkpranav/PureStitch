@@ -10,8 +10,8 @@ const recommendations = () => {
     const [quality, setQuality] = useState(80)
     const [Height, setHeight] = useState(null)
     const [Width, setWidth] = useState(null)
-    const loadedImages = useRef(new Set()) // Track loaded images to prevent multiple reloads
-    const observerRef = useRef(null) // Reference to the observer instance
+    const loadedImages = useRef(new Set())
+    const observerRef = useRef(null)
 
     const ReduceRes = (original_height,original_width)=>{
       let reduced_width = Math.round(window.innerWidth)
@@ -23,9 +23,7 @@ const recommendations = () => {
 } 
     const fetch=async()=>{
       const data  = await products()
-      let Data =  data.data
-      console.log(Data[0].media[0]);
-      
+      let Data =  data.data      
       for(let i=0;i<Data.length;i++){
         for(let j=0;j<Data[i].media.length;j++){
           Data[i].media[j].reduced_height = ReduceRes(Data[i].media[j].original_height,Data[i].media[j].original_width)[0]
@@ -86,7 +84,6 @@ const recommendations = () => {
           entries.forEach((entry) => {
             
             if (entry.isIntersecting) {
-              console.log(entry.target.id);
               const index = data.findIndex(item => `media_${item.id}` === entry.target.id)
               
               if (index !== -1 && !loadedImages.current.has(index)) {
@@ -119,8 +116,6 @@ const recommendations = () => {
         }
       }
     }, [data]) 
-    console.log(data);
-    capitalize()
   return (
     data.map((data,index)=>(
       <div className={styles['post-wrapper']}>
@@ -136,12 +131,10 @@ const recommendations = () => {
       </div>
           <div className={styles.media} id={`media_${data.id}`}>
          {
-
             data.media.map((media,i)=>(
               <img id={`media_${index}_${i}`} onClick={()=>ReduceRes(media.original_height,media.original_width)}  src={`${process.env.POST_MEDIA_URL}?width=${media.reduced_width!=null?media.reduced_width:media.original_width}&height=${media.reduced_height!=null?media.reduced_height:media.original_height}&format=${media.format}&quality=${media.quality&&media.quality!=0?media.quality:quality}&category=${media.category}&image=${media.file}`}/>
-
             ))
-            }
+          }
           </div>
           <div className={styles['post-actions']}>
           <Image className='icon' width={100} height={100} src='/icons/wishlist.svg'/>

@@ -38,16 +38,15 @@
         padding-right: 3px;
     }
     .arrivals-new{
-        position: relative;
-        width:clamp(40px,3rem,60px);
-        height:clamp(40px,3rem,60px);
+        width:clamp(48px,5.5rem,80px);
+        height:clamp(48px,5.5rem,80px);
         border-radius: 50%;
         background:linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
         z-index: -1;
     }
     .arrivals{
-        width:clamp(40px,2rem,60px);
-        height:clamp(40px,2rem,60px);
+        width:clamp(48px,4.5rem,72px);
+        height:clamp(48px,4.5rem,72px);
         border-radius: 50%;
         overflow: hidden;
         position: absolute;

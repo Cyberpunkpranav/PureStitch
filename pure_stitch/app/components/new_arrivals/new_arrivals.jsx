@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { product_types } from '@/app/api/common/common'
 import styles from './new_arrivals.module.scss'
+import Link from 'next/link'
 
 const NewArrivals = () => {
   const [data, setData] = useState([])
@@ -89,15 +90,14 @@ const NewArrivals = () => {
       }
     }
   }, [data]) // Include height and width to handle resizing
-
+  
   return (
     data && data.map((item, i) => (
-      <div key={i} className={styles['arrivals-wrapper']}>
+      <Link href={`/arrivals/${item.type_name}?product_type_id=${item.id}`} key={i} className={styles['arrivals-wrapper']}>
         <div className={styles['arrivals-new']}>
           <div id={item.type_name} className={styles.arrivals}>
             {
-              height !== null && width !== null
-                ? 
+              height !== null && width !== null ? 
                 <img
                   id={item.type_name + "_image"}
                   alt='image'
@@ -109,7 +109,7 @@ const NewArrivals = () => {
           </div>
         </div>
         <small>{item && item.type_name}</small>
-      </div>
+      </Link>
     ))
   )
 }
