@@ -1,23 +1,33 @@
 @use '../../styles/constants.scss';
 
 .new-arrival{
-    height: 95vh;
+    height: 100vh;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     overflow: hidden;
     & h4{
-        padding:10px 20px 10px 20px ;
+        padding:5px 20px 0px 20px ;
         position: absolute;
         top:0;
         margin-top: 10px;
     }
     & .arrivals{
         // height: 85vh;
-        // display: grid;
-        // place-items: center;
+        display: grid;
+        place-items: center;
         overflow: hidden;
     }
     & .arrival-images{
         width:100%;
         height: auto;
     }
+}
+.close{
+    position: absolute;
+    top:0;
+    right:0;
+    margin-top: 10px;
+    margin-right: 10px;
 }

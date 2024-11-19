@@ -1,0 +1,19 @@
+@use '../../styles/constants.scss';
+
+.trail{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    width: 100%;
+    margin-top: 5px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    & .trail_paths{
+        height: 2px;
+        border-radius: 10px;
+        background-color: constants.$gray;
+        min-width: 100%;
+    }
+}

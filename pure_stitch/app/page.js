@@ -3,6 +3,7 @@ import Recommendations from "./components/recommendations/recommendations";
 import NewArrivals from "./components/new_arrivals/new_arrivals";
 import styles from './styles/main.module.scss'
 import Navbar from "./components/navbar/navbar";
+import Bottombar from "./components/bottombar/bottombar";
 
 export default function Home() {
   return (
@@ -11,7 +12,8 @@ export default function Home() {
       <div className={`${styles.arrivals} flex items-center py-1 scroll justify-evenly`}>
       <NewArrivals/>
       </div>
-      <Recommendations/>
+      <Recommendations/>        
+      <Bottombar/>
     </section>
   );
 }
