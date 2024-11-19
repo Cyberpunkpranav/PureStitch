@@ -139,3 +139,16 @@ $font-weights: (
 .bg-gray{
   background-color: $gray;
 }
+.bg-gradient0{
+  background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+}
+.bg-gradient1{
+  background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+}
+.bg-gradient2{
+  background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
+}
+.bg-gradient3{
+  background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
+ background-blend-mode: multiply,multiply;
+}
