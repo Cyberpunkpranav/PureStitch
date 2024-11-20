@@ -14,10 +14,14 @@ const Arrivals = ({data,type_name}) => {
             <Link href='/'>
             <Image width={100} height={100} className={`${styles.close} icon`} src="/icons/cross.svg" alt="" />
             </Link>
-            <Trail/>
-            <div className={styles['arrivals']}>
-              <Image className={styles['arrival-images']} unoptimized={true} height={100} width={100} src={`${process.env.ARRIVAL_POST_MEDIA}?width=${data[0].original_width}&height=${data[0].original_height}&image=${data[0].file}&category=${`t-shirts`}&quality=${100}&format=${data[0].format}`}/>
-            </div>
+            <Trail count={data.length}/>
+              {
+                data.map((data)=>(
+                  <div className={styles['arrivals']}>
+                  <Image className={styles['arrival-images']} unoptimized={true} height={100} width={100} src={`${process.env.ARRIVAL_POST_MEDIA}?width=${data.original_width}&height=${data.original_height}&image=${data.file}&category=${`t-shirts`}&quality=${100}&format=${data.format}`}/>
+                  </div>
+                ))
+              }
     </div>
   )
 }
