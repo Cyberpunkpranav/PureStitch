@@ -27,8 +27,8 @@ const Trail = ({count}) => {
   return(
     <div className={styles.trail}>
       {
-        trails.map((data)=>(
-          <div style={{width:`${(100/trails.length)}%`}} className={styles.trail_paths}></div>
+        trails.map((data,i)=>(
+          <div key={i} style={{width:`${(100/trails.length)}%`}} className={styles.trail_paths}></div>
         ))
       }
       </div>
