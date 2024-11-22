@@ -1,7 +1,7 @@
 import React, {useState, useEffect } from 'react'
 import styles from './trail.module.scss'
 
-const Trail = ({count}) => {
+const Trail = ({indexes,activeIndex,count}) => {
   console.log(count);
   
   let [trails,settrails] = useState([])
@@ -28,7 +28,7 @@ const Trail = ({count}) => {
     <div className={styles.trail}>
       {
         trails.map((data,i)=>(
-          <div key={i} style={{width:`${(100/trails.length)}%`}} className={styles.trail_paths}></div>
+          <div key={i} style={{width:`${(100/trails.length)}%`}} className={`${styles.trail_paths} ${indexes.includes(i)||activeIndex==i?styles.active:''} `}></div>
         ))
       }
       </div>

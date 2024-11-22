@@ -8,14 +8,26 @@ import Trail from '@/app/components/trail/trail';
 const Arrivals = ({data,type_name}) => {
   const arrivalsRef  = useRef(null)
   const [activeIndex,setactiveIndex]=useState(0)
+  const [indexes,setindexes] = useState([0])
   console.log(data);
   const toleft=()=>{
     if(activeIndex!=0){
       setactiveIndex(activeIndex-1)
+        const updatedArray = indexes.filter(num => num !== activeIndex && num !== activeIndex-1);
+        setindexes(updatedArray)
+        setTimeout(()=>{
+          setindexes([0])
+        },1000)
+    }else{
     }
   }
     const toright=()=>{
       setactiveIndex(activeIndex+1)
+      if(indexes.includes(activeIndex+1)){
+        return 0
+      }else{
+        setindexes(prevstate=>[...prevstate,activeIndex+1])
+      }
       // if (arrivalsRef.current) {
       //   console.log(arrivalsRef.current.style);
       //   arrivalsRef.current.style.transform = 'translateX(-100%)';
@@ -23,6 +35,8 @@ const Arrivals = ({data,type_name}) => {
       //   console.error('arrivalsRef.current is undefined');
       // }
     }
+    console.log(indexes);
+    
   return (  
     <div className={`${styles['new-arrival']} bg-gradient${Math.floor(Math.random() * 4)}`}>
       <div onClick={()=>toleft()} className={styles.toleft}></div>
@@ -31,7 +45,7 @@ const Arrivals = ({data,type_name}) => {
             <Link href='/'>
             <Image width={100} height={100} className={`${styles.close} icon`} src="/icons/cross.svg" alt="" />
             </Link>
-            <Trail active={activeIndex} count={data.length}/>
+            <Trail indexes={indexes} activeIndex={activeIndex} count={data.length}/>
             <div ref={arrivalsRef} className={styles['arrivals']}>
               {
                 data.map((data,i)=>(
