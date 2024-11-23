@@ -9,7 +9,6 @@ const Arrivals = ({data,type_name}) => {
   const arrivalsRef  = useRef(null)
   const [activeIndex,setactiveIndex]=useState(0)
   const [indexes,setindexes] = useState([0])
-  console.log(data);
   const toleft=()=>{
     if(activeIndex!=0){
       setactiveIndex(activeIndex-1)
@@ -28,12 +27,6 @@ const Arrivals = ({data,type_name}) => {
       }else{
         setindexes(prevstate=>[...prevstate,activeIndex+1])
       }
-      // if (arrivalsRef.current) {
-      //   console.log(arrivalsRef.current.style);
-      //   arrivalsRef.current.style.transform = 'translateX(-100%)';
-      // } else {
-      //   console.error('arrivalsRef.current is undefined');
-      // }
     }
     console.log(indexes);
     

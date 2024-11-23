@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { product_types } from '@/app/api/common/common'
 import styles from './new_arrivals.module.scss'
 import Link from 'next/link'
+import { useMediaFile } from '../caching/media'
 
 const NewArrivals = () => {
   const [data, setData] = useState([])
@@ -11,6 +12,7 @@ const NewArrivals = () => {
   const [width, setWidth] = useState(null)
   const loadedImages = useRef(new Set()) // Track loaded images to prevent multiple reloads
   const observerRef = useRef(null) // Reference to the observer instance
+  // const { data: mediaUrl, isLoading, isError } = useMediaFile(fileUrl);
 
   // Fetch data
   const fetchData = async () => {
@@ -41,6 +43,10 @@ const NewArrivals = () => {
             ? { ...item, image_url: `${process.env.NEW_ARRIVALS_BG_URL}?width=${width * 2}&height=${height * 2}&format=png&quality=100&image=${item.image}` }
             : item
         )
+        prevData.map((item,i)=>
+          useMediaFile(`${process.env.NEW_ARRIVALS_BG_URL}?width=${width * 2}&height=${height * 2}&format=png&quality=100&image=${item.image}`)
+        )
+
         return updatedData
       })
       loadedImages.current.add(index) // Mark image as loaded
