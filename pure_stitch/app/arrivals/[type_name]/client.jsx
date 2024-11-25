@@ -36,7 +36,7 @@ const Arrivals = ({data,type_name}) => {
       <div onClick={()=>toright()} className={styles.toright}></div>
             <h4 className='text-white font-semibold '>{type_name.toUpperCase()}</h4>
             <Link href='/'>
-            <Image width={100} height={100} className={`${styles.close} icon`} src="/icons/cross.svg" alt="" />
+            <Image width={100} height={100} className={`${styles.close} icon`} src="/icons/cross.avif" alt="" />
             </Link>
             <Trail indexes={indexes} activeIndex={activeIndex} count={data.length}/>
             <div ref={arrivalsRef} className={styles['arrivals']}>

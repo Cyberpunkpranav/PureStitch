@@ -14,9 +14,9 @@ const recommendations = () => {
     const observerRef = useRef(null)
 
     const ReduceRes = (original_height,original_width)=>{
-      let reduced_width = Math.round(window.innerWidth)
-      let width_ratio = Math.round(original_width/reduced_width) 
-      let reduced_height = Math.round(original_height/width_ratio)
+      let reduced_width = window.innerWidth
+      let width_ratio = original_width/reduced_width
+      let reduced_height = original_height/width_ratio
     
     return [reduced_height,reduced_width]
       
@@ -126,19 +126,19 @@ const recommendations = () => {
         <h6 className='font-bold'>{capitalize(data.product_name)}</h6>
         <h6 className='font-light'>{data.media[0].category}</h6>
         </div>
-        <h6 className='inline-block font-light'>{data.gender ? <img src='/icons/male.svg'/>:<></>}</h6>
+        <h6 className='inline-block font-light'>{data.gender ? <img src='/icons/male.avif'/>:<></>}</h6>
         </div>
       </div>
           <div className={styles.media} id={`media_${data.id}`}>
          {
             data.media.map((media,i)=>(
-              <img id={`media_${index}_${i}`} onClick={()=>ReduceRes(media.original_height,media.original_width)}  src={`${process.env.POST_MEDIA_URL}?width=${media.reduced_width!=null?media.reduced_width:media.original_width}&height=${media.reduced_height!=null?media.reduced_height:media.original_height}&format=${media.format}&quality=${media.quality&&media.quality!=0?media.quality:quality}&category=${media.category}&image=${media.file}`}/>
+              <img id={`media_${index}_${i}`} src={`${process.env.POST_MEDIA_URL}?width=${media.reduced_width!=null?media.reduced_width:(media.original_width)}&height=${media.reduced_height!=null?media.reduced_height:(media.original_height)}&format=${media.format}&quality=${media.quality&&media.quality!=0?media.quality:quality}&category=${media.category}&image=${media.file}`}/>
             ))
           }
           </div>
           <div className={styles['post-actions']}>
-          <Image className='icon' width={100} height={100} src='/icons/wishlist.svg'/>
-          <Image className='icon' width={100} height={100} src='/icons/add to cart.svg'/>
+          <Image className='icon' width={100} height={100} src='/icons/wishlist.avif'/>
+          <Image className='icon' width={100} height={100} src='/icons/add to cart.avif'/>
           </div>
           <div className={styles['post-info']}>
           <p className=''>{data.product_description}</p>

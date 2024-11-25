@@ -11,8 +11,12 @@ const fetchMediaFile = async (url) => {
 };
 
 export const useMediaFile = (url) => {
-  return useQuery(['mediaFile', url], () => fetchMediaFile(url), {
+  return useQuery({
+    queryKey: ['mediaFile', url], // Use the "Object" form
+    queryFn: () => fetchMediaFile(url),
     staleTime: Infinity,
     cacheTime: Infinity,
   });
+
 };
+

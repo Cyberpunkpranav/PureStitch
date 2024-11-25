@@ -15,13 +15,17 @@
     & .trail_paths{
         height: 3px;
         border-radius: 20px;
-        margin-left:2px;
-        margin-right: 2px;
+        margin-left:4px;
+        margin-right:4px;
         background-color: constants.$gray;
         transition: all 7s;
+        &.active{
+          position: relative;
+        }
         &.active::before {
             content: '';
             position: absolute;
+            left:0;
             height: 3px;
             border-radius: 20px;
             width: 0%;
@@ -36,6 +40,6 @@
       width: 0%;
     }
     to {
-      width: 33.3333%;
+      width:100%;
     }
   }

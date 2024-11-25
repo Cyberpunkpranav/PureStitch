@@ -20,7 +20,7 @@ const Trail = ({indexes,activeIndex,count}) => {
   }
   useEffect(()=>{
     settrails(countfunc())
-    document.documentElement.style.setProperty('trail_width',100/count)
+    // document.documentElement.style.setProperty('trail_width',100/count)
   },[])
   
   

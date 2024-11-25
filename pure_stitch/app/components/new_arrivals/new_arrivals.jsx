@@ -43,9 +43,6 @@ const NewArrivals = () => {
             ? { ...item, image_url: `${process.env.NEW_ARRIVALS_BG_URL}?width=${width * 2}&height=${height * 2}&format=png&quality=100&image=${item.image}` }
             : item
         )
-        prevData.map((item,i)=>
-          useMediaFile(`${process.env.NEW_ARRIVALS_BG_URL}?width=${width * 2}&height=${height * 2}&format=png&quality=100&image=${item.image}`)
-        )
 
         return updatedData
       })
@@ -95,6 +92,7 @@ const NewArrivals = () => {
         observerRef.current.disconnect()
       }
     }
+
   }, [data]) // Include height and width to handle resizing
   
   return (
