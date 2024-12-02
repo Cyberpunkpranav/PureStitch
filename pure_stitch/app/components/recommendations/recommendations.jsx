@@ -126,7 +126,7 @@ const recommendations = () => {
         <h6 className='font-bold'>{capitalize(data.product_name)}</h6>
         <h6 className='font-light'>{data.media[0].category}</h6>
         </div>
-        <h6 className='inline-block font-light'>{data.gender ? <img src='/icons/male.avif'/>:<></>}</h6>
+        <h6 className='inline-block font-light'>{data.gender ? <img src='/icons/male.svg'/>:<></>}</h6>
         </div>
       </div>
           <div className={styles.media} id={`media_${data.id}`}>
@@ -137,8 +137,8 @@ const recommendations = () => {
           }
           </div>
           <div className={styles['post-actions']}>
-          <Image className='icon' width={100} height={100} src='/icons/wishlist.avif'/>
-          <Image className='icon' width={100} height={100} src='/icons/add to cart.avif'/>
+          <Image className='icon' width={100} height={100} src='/icons/wishlist.svg'/>
+          <Image className='icon' width={100} height={100} src='/icons/add to cart.svg'/>
           </div>
           <div className={styles['post-info']}>
           <p className=''>{data.product_description}</p>

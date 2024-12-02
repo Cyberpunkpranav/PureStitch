@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './styles.module.scss'
 import Image from 'next/image';
 import Link from 'next/link';
@@ -28,7 +28,6 @@ const Arrivals = ({data,type_name}) => {
         setindexes(prevstate=>[...prevstate,activeIndex+1])
       }
     }
-    console.log(indexes);
     
   return (  
     <div className={`${styles['new-arrival']} bg-gradient${Math.floor(Math.random() * 4)}`}>
@@ -36,7 +35,7 @@ const Arrivals = ({data,type_name}) => {
       <div onClick={()=>toright()} className={styles.toright}></div>
             <h4 className='text-white font-semibold '>{type_name.toUpperCase()}</h4>
             <Link href='/'>
-            <Image width={100} height={100} className={`${styles.close} icon`} src="/icons/cross.avif" alt="" />
+            <Image width={100} height={100} className={`${styles.close} icon`} src="/icons/cross.svg" alt="" />
             </Link>
             <Trail indexes={indexes} activeIndex={activeIndex} count={data.length}/>
             <div ref={arrivalsRef} className={styles['arrivals']}>

@@ -28,18 +28,18 @@
             left:0;
             height: 3px;
             border-radius: 20px;
-            width: 0%;
+            width: 100%;
             background-color: constants.$charcoal;
-            animation: loading-animation 5s ease-out forwards;
+            // animation: loading-animation 5s ease-out forwards;
           }
           
     }
 }
-@keyframes loading-animation {
-    from {
-      width: 0%;
-    }
-    to {
-      width:100%;
-    }
-  }
+// @keyframes loading-animation {
+//     from {
+//       width: 0%;
+//     }
+//     to {
+//       width:100%;
+//     }
+//   }
